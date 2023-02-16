@@ -56,7 +56,7 @@ void mouse(int button, int state, int x, int y) {
 
         // Quadrat auswählen, das am nächsten zur Mausposition ist
         int closestId = -1;
-        float closestDist = 99999.0f;
+        float closestDist = 0.5f;
         for (auto& square : squares) {
             float dist = std::sqrt(std::pow(square.x - xPos, 2) + std::pow(square.y - yPos, 2));
             if (dist < closestDist) {
@@ -66,7 +66,7 @@ void mouse(int button, int state, int x, int y) {
         }
 
         int closestId2 = -1;
-        float closestDist2 = 99999.0f;
+        float closestDist2 = 0.5f;
         for (auto& square2 : squares2) {
             float dist2 = std::sqrt(std::pow(square2.x2 - xPos2, 2) + std::pow(square2.y2 - yPos2, 2));
             if (dist2 < closestDist) {
