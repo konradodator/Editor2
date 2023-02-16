@@ -10,8 +10,17 @@ struct Square {
     float size;
 };
 
+struct Square2 {
+    int id2;
+    float x2;
+    float y2;
+    float size2;
+};
+
 // Vektor, um Quadratinformationen zu speichern
 std::vector<Square> squares;
+std::vector<Square2> squares2;
+
 
 // Hilfsfunktion zum Finden eines Quadrats anhand seiner ID
 Square* findSquare(int id) {
@@ -23,16 +32,29 @@ Square* findSquare(int id) {
     return nullptr;
 }
 
+Square2* findSquare2(int id2) {
+    for (auto& square2 : squares2) {
+        if (square2.id2 == id2) {
+            return &square2;
+        }
+    }
+    return nullptr;
+}
+
+
+
 // Mausereignis-Callback-Funktion
 void mouse(int button, int state, int x, int y) {
-    // Wenn die linke Maustaste gedr¸ckt wurde, Quadrat ausw‰hlen und Position aktualisieren
+    // Wenn die linke Maustaste gedr√ºckt wurde, Quadrat ausw√§hlen und Position aktualisieren
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
         // Umrechnung der Fensterkoordinaten in OpenGL-Koordinaten (-1 bis 1)
         float xPos = (float)x / glutGet(GLUT_WINDOW_WIDTH) * 2 - 1;
         float yPos = (float)y / glutGet(GLUT_WINDOW_HEIGHT) * -2 + 1;
+        float xPos2 = (float)x / glutGet(GLUT_WINDOW_WIDTH) * 2 - 1;
+        float yPos2 = (float)y / glutGet(GLUT_WINDOW_HEIGHT) * -2 + 1;
     
 
-        // Quadrat ausw‰hlen, das am n‰chsten zur Mausposition ist
+        // Quadrat ausw√§hlen, das am n√§chsten zur Mausposition ist
         int closestId = -1;
         float closestDist = 99999.0f;
         for (auto& square : squares) {
@@ -43,13 +65,34 @@ void mouse(int button, int state, int x, int y) {
             }
         }
 
+        int closestId2 = -1;
+        float closestDist2 = 99999.0f;
+        for (auto& square2 : squares2) {
+            float dist2 = std::sqrt(std::pow(square2.x2 - xPos2, 2) + std::pow(square2.y2 - yPos2, 2));
+            if (dist2 < closestDist) {
+                closestId2 = square2.id2;
+                closestDist2 = dist2;
+            }
+        }
 
-        // Position des ausgew‰hlten Quadrats aktualisieren
+
+        // Position des ausgew√§hlten Quadrats aktualisieren
         if (closestId != -1) {
             Square* square = findSquare(closestId);
             if (square) {
                 square->x = xPos;
                 square->y = yPos;
+
+                // Neuzeichnen des Fensters
+                glutPostRedisplay();
+            }
+        }
+        // Position des ausgew√§hlten Quadrats aktualisieren
+        if (closestId2 != -1) {
+            Square2* square2 = findSquare2(closestId2);
+            if (square2) {
+                square2->x2 = xPos2;
+                square2->y2 = yPos2;
 
                 // Neuzeichnen des Fensters
                 glutPostRedisplay();
@@ -64,6 +107,7 @@ void draw() {
 
     // Alle Quadrate zeichnen
     for (auto& square : squares) {
+        // Zeichne Quadrate
         glColor3f(1.0f, 1.0f, 1.0f);
         glBegin(GL_QUADS);
         glVertex2f(square.x - square.size, square.y + square.size);
@@ -72,26 +116,50 @@ void draw() {
         glVertex2f(square.x - square.size, square.y - square.size);
         glEnd();
 
-       
+
+        // Zeichne Linien
         glLineWidth(2.0f);
         glColor3f(0.0f, 0.0f, 0.0f);
         glBegin(GL_LINES);
-        glVertex2f(square.x - square.size/3, square.y - square.size);
+        glVertex2f(square.x - square.size / 3, square.y - square.size);
         glVertex2f(square.x - square.size / 3, square.y + square.size);
         glVertex2f(square.x + square.size / 3, square.y - square.size);
         glVertex2f(square.x + square.size / 3, square.y + square.size);
         glEnd();
+    }
 
+    for (auto& square2 : squares2) {
+        // Zeichne Quadrate
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glBegin(GL_QUADS);
+        glVertex2f(square2.x2 - square2.size2, square2.y2 + square2.size2);
+        glVertex2f(square2.x2 + square2.size2, square2.y2 + square2.size2);
+        glVertex2f(square2.x2 + square2.size2, square2.y2 - square2.size2);
+        glVertex2f(square2.x2 - square2.size2, square2.y2 - square2.size2);
+        glEnd();
 
+        glLineWidth(2.0f);
+        glColor3f(0.0f, 0.0f, 0.0f);
+        glBegin(GL_LINES);
+        glVertex2f(square2.x2 - square2.size2, square2.y2 + square2.size2 / 3);
+        glVertex2f(square2.x2 + square2.size2, square2.y2 + square2.size2 / 3);
+        glVertex2f(square2.x2 - square2.size2, square2.y2 - square2.size2 / 3);
+        glVertex2f(square2.x2 + square2.size2, square2.y2 - square2.size2 / 3);
+        glEnd();
     }
 
     glutSwapBuffers();
 }
 
-// Funktion zum Hinzuf¸gen eines neuen Quadrats
+// Funktion zum Hinzuf√ºgen eines neuen Quadrats
 void addSquare(float x, float y, float size) {
     int id = squares.empty() ? 1 : squares.back().id + 1;
     squares.push_back({ id, x, y, size });
+}
+
+void addSquare2(float x, float y, float size) {
+    int id2 = squares2.empty() ? 1 : squares2.back().id2 + 1;
+    squares2.push_back({ id2, x, y, size });
 }
 
 // Funktion zum Entfernen eines Quadrats anhand seiner ID
@@ -101,15 +169,13 @@ void removeSquare(int id) {
         }), squares.end());
 }
 
-void keyboard(unsigned char key, int x, int y) {
-    if (key == 'a') {
-        addSquare(-0.5f, 0.5f, 0.15f);
-    }
-    else if (key == 'r' && !squares.empty()) {
-        removeSquare(squares.back().id);
-    }
-    glutPostRedisplay();
+void removeSquare2(int id2) {
+    squares2.erase(std::remove_if(squares2.begin(), squares2.end(), [&](Square2& square2) {
+        return square2.id2 == id2;
+        }), squares2.end());
 }
+
+
 
 // Hauptfunktion
 int main(int argc, char** argv) {
@@ -125,16 +191,25 @@ int main(int argc, char** argv) {
     squares.push_back({ 1, -0.5f, 0.5f, 0.15f });
     squares.push_back({ 2, -0.1f, 0.5f, 0.15f });
     squares.push_back({ 3,  0.3f, 0.5f, 0.15f });
+    squares2.push_back({ 4,  0.5f, 0.5f, 0.15f });
 
     glutKeyboardFunc([](unsigned char key, int x, int y) {
         if (key == 'a') {
             addSquare(-0.5f, 0.5f, 0.15f);
             glutPostRedisplay();
         }
+    if (key == 'd') {
+        addSquare2(-0.5f, 0.5f, 0.15f);
+        glutPostRedisplay();
+    }
         else if (key == 'r') {
-            removeSquare(squares.back().id);
+            removeSquare(squares2.back().id2);
             glutPostRedisplay();
         }
+        else if (key == 'd') {
+        removeSquare2(squares2.back().id2);
+        glutPostRedisplay();
+    }
         });
 
 
