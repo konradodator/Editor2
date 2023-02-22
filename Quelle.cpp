@@ -305,10 +305,10 @@ int main(int argc, char** argv) {
     // Erzeugen von Quadraten mit verschiedenen Positionen
     squares.push_back({  1, -0.5f, 0.5f, 0.15f });
     squares.push_back({  2, -0.3f, 0.5f, 0.15f });
-    squares.push_back({  3, -0.1f, 0.5f, 0.15f });
+    squares2.push_back({  3, -0.1f, 0.5f, 0.15f });
     squares2.push_back({ 4,  0.2f, 0.5f, 0.15f });
-    squares2.push_back({ 5,  0.5f, 0.5f, 0.15f });
-    squares2.push_back({ 6,  0.8f, 0.5f, 0.15f });
+    squares3.push_back({ 5,  0.5f, 0.5f, 0.15f });
+    squares3.push_back({ 6,  0.8f, 0.5f, 0.15f });
 
     //Tastenzuweisung 
     glutKeyboardFunc([](unsigned char key, int x, int y) {
@@ -316,16 +316,28 @@ int main(int argc, char** argv) {
             addSquare(-0.5f, 0.5f, 0.15f);
             glutPostRedisplay();
         }
-    if (key == '2') {
-        addSquare2(-0.5f, 0.5f, 0.15f);
-        glutPostRedisplay();
-    }
         else if (key == '!') {
             removeSquare(squares.back().id);
             glutPostRedisplay();
         }
+
+    if (key == '2') {
+        addSquare2(-0.5f, 0.5f, 0.15f);
+        glutPostRedisplay();
+    }
+
         else if (key == '"') {
         removeSquare2(squares2.back().id2);
+        glutPostRedisplay();
+    }
+
+    if (key == '3') {
+        addSquare3(-0.5f, 0.5f, 0.15f);
+        glutPostRedisplay();
+    }
+
+    else if (key == '§') {
+        removeSquare3(squares3.back().id3);
         glutPostRedisplay();
     }
         });
