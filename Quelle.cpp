@@ -266,6 +266,11 @@ void addSquare2(float x2, float y2, float size2) {
     squares2.push_back({ id2, x2, y2, size2 });
 }
 
+void addSquare3(float x3, float y3, float size3) {
+    int id3 = squares3.empty() ? 1 : squares3.back().id3 + 1;
+    squares3.push_back({ id3, x3, y3, size3 });
+}
+
 // Funktion zum Entfernen eines Quadrats anhand seiner ID
 void removeSquare(int id) {
     squares.erase(std::remove_if(squares.begin(), squares.end(), [&](Square& square) {
@@ -277,6 +282,12 @@ void removeSquare2(int id2) {
     squares2.erase(std::remove_if(squares2.begin(), squares2.end(), [&](Square2& square2) {
         return square2.id2 == id2;
         }), squares2.end());
+}
+
+void removeSquare3(int id3) {
+    squares3.erase(std::remove_if(squares3.begin(), squares3.end(), [&](Square3& square3) {
+        return square3.id3 == id3;
+        }), squares3.end());
 }
 
 
