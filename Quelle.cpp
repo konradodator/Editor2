@@ -162,7 +162,7 @@ void draw() {
         glVertex2f(square.x - square.size / 3, square.y - square.size);
         glVertex2f(square.x + square.size / 3, square.y - square.size);
         glVertex2f(square.x + square.size / 3, square.y + square.size);
-        glVertex2f(square.x - square.size / 3, square.y + square.size); 
+        glVertex2f(square.x - square.size / 3, square.y + square.size);
         glEnd();
 
         // Zeichne Linien
@@ -188,10 +188,10 @@ void draw() {
 
         glColor3f(0.5f, 0.5f, 0.5f);
         glBegin(GL_QUADS);
-        glVertex2f(square2.x2 - square2.size2/150, square2.y2 + square2.size2 / 3);
+        glVertex2f(square2.x2 - square2.size2 / 150, square2.y2 + square2.size2 / 3);
         glVertex2f(square2.x2 + square2.size2, square2.y2 + square2.size2 / 3);
         glVertex2f(square2.x2 + square2.size2, square2.y2 - square2.size2 / 3);
-        glVertex2f(square2.x2 - square2.size2/150, square2.y2 - square2.size2 / 3);
+        glVertex2f(square2.x2 - square2.size2 / 150, square2.y2 - square2.size2 / 3);
         glEnd();
 
         glLineWidth(2.0f);
@@ -199,14 +199,14 @@ void draw() {
         glBegin(GL_LINES);
         glVertex2f(square2.x2 - square2.size2 + square2.size2 + square2.size2 / 3, square2.y2 + square2.size2 / 3);
         glVertex2f(square2.x2 + square2.size2, square2.y2 + square2.size2 / 3);
-        glVertex2f(square2.x2 - square2.size2/3, square2.y2 - square2.size2 / 3);
+        glVertex2f(square2.x2 - square2.size2 / 3, square2.y2 - square2.size2 / 3);
         glVertex2f(square2.x2 + square2.size2, square2.y2 - square2.size2 / 3);
         glEnd();
 
         glColor3f(0.5f, 0.5f, 0.5f);
         glBegin(GL_QUADS);
-        glVertex2f(square2.x2 - square2.size2 / 3, square2.y2 - square2.size2/3);
-        glVertex2f(square2.x2 + square2.size2 / 3, square2.y2 - square2.size2/3);
+        glVertex2f(square2.x2 - square2.size2 / 3, square2.y2 - square2.size2 / 3);
+        glVertex2f(square2.x2 + square2.size2 / 3, square2.y2 - square2.size2 / 3);
         glVertex2f(square2.x2 + square2.size2 / 3, square2.y2 + square2.size2);
         glVertex2f(square2.x2 - square2.size2 / 3, square2.y2 + square2.size2);
         glEnd();
@@ -215,38 +215,39 @@ void draw() {
         glLineWidth(2.0f);
         glColor3f(0.0f, 0.0f, 0.0f);
         glBegin(GL_LINES);
-        glVertex2f(square2.x2 - square2.size2 / 3, square2.y2 - square2.size2/3);
+        glVertex2f(square2.x2 - square2.size2 / 3, square2.y2 - square2.size2 / 3);
         glVertex2f(square2.x2 - square2.size2 / 3, square2.y2 + square2.size2);
-        glVertex2f(square2.x2 + square2.size2 / 3, square2.y2 - square2.size2 + square2.size2 + square2.size2/3);
+        glVertex2f(square2.x2 + square2.size2 / 3, square2.y2 - square2.size2 + square2.size2 + square2.size2 / 3);
         glVertex2f(square2.x2 + square2.size2 / 3, square2.y2 + square2.size2);
         glEnd();
+    }
 
-        for (auto& square3 : squares3) {
-            // Zeichne Quadrate
-            glColor3f(1.0f, 1.0f, 1.0f);
-            glBegin(GL_QUADS);
-            glVertex2f(square3.x3 - square3.size3, square3.y3 + square3.size3);
-            glVertex2f(square3.x3 + square3.size3, square3.y3 + square3.size3);
-            glVertex2f(square3.x3 + square3.size3, square3.y3 - square3.size3);
-            glVertex2f(square3.x3 - square3.size3, square3.y3 - square3.size3);
-            glEnd();
+    for (auto& square3 : squares3) {
+        // Zeichne Quadrate
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glBegin(GL_QUADS);
+        glVertex2f(square3.x3 - square3.size3, square3.y3 + square3.size3);
+        glVertex2f(square3.x3 + square3.size3, square3.y3 + square3.size3);
+        glVertex2f(square3.x3 + square3.size3, square3.y3 - square3.size3);
+        glVertex2f(square3.x3 - square3.size3, square3.y3 - square3.size3);
+        glEnd();
 
-            glColor3f(0.5f, 0.5f, 0.5f);
-            glBegin(GL_QUADS);
-            glVertex2f(square3.x3 - square3.size3, square3.y3 + square3.size3 / 3);
-            glVertex2f(square3.x3 + square3.size3, square3.y3 + square3.size3 / 3);
-            glVertex2f(square3.x3 + square3.size3, square3.y3 - square3.size3 / 3);
-            glVertex2f(square3.x3 - square3.size3, square3.y3 - square3.size3 / 3);
-            glEnd();
+        glColor3f(0.5f, 0.5f, 0.5f);
+        glBegin(GL_QUADS);
+        glVertex2f(square3.x3 - square3.size3, square3.y3 + square3.size3 / 3);
+        glVertex2f(square3.x3 + square3.size3, square3.y3 + square3.size3 / 3);
+        glVertex2f(square3.x3 + square3.size3, square3.y3 - square3.size3 / 3);
+        glVertex2f(square3.x3 - square3.size3, square3.y3 - square3.size3 / 3);
+        glEnd();
 
-            glLineWidth(2.0f);
-            glColor3f(0.0f, 0.0f, 0.0f);
-            glBegin(GL_LINES);
-            glVertex2f(square2.x2 - square2.size2, square2.y2 + square2.size2 / 3);
-            glVertex2f(square2.x2 + square2.size2, square2.y2 + square2.size2 / 3);
-            glVertex2f(square2.x2 - square2.size2, square2.y2 - square2.size2 / 3);
-            glVertex2f(square2.x2 + square2.size2, square2.y2 - square2.size2 / 3);
-            glEnd();
+        glLineWidth(2.0f);
+        glColor3f(0.0f, 0.0f, 0.0f);
+        glBegin(GL_LINES);
+        glVertex2f(square3.x3 - square3.size3, square3.y3 + square3.size3 / 3);
+        glVertex2f(square3.x3 + square3.size3, square3.y3 + square3.size3 / 3);
+        glVertex2f(square3.x3 - square3.size3, square3.y3 - square3.size3 / 3);
+        glVertex2f(square3.x3 + square3.size3, square3.y3 - square3.size3 / 3);
+        glEnd();
     }
 
 
