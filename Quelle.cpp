@@ -316,7 +316,7 @@ int main(int argc, char** argv) {
             addSquare(-0.5f, 0.5f, 0.15f);
             glutPostRedisplay();
         }
-        else if (key == '!') {
+        else if (key == 'q') {
             removeSquare(squares.back().id);
             glutPostRedisplay();
         }
@@ -326,7 +326,7 @@ int main(int argc, char** argv) {
         glutPostRedisplay();
     }
 
-        else if (key == '"') {
+        else if (key == 'w') {
         removeSquare2(squares2.back().id2);
         glutPostRedisplay();
     }
@@ -336,7 +336,7 @@ int main(int argc, char** argv) {
         glutPostRedisplay();
     }
 
-    else if (key == '§') {
+    if (key == 'e') {
         removeSquare3(squares3.back().id3);
         glutPostRedisplay();
     }
