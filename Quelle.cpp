@@ -31,11 +31,27 @@ struct Square4 {
     float size4;
 };
 
+struct Square5 {
+    int id5;
+    float x5;
+    float y5;
+    float size5;
+};
+
+struct Square6 {
+    int id6;
+    float x6;
+    float y6;
+    float size6;
+};
+
 // Vektor, um Quadratinformationen zu speichern
 std::vector<Square> squares;
 std::vector<Square2> squares2;
 std::vector<Square3> squares3;
 std::vector<Square4> squares4;
+std::vector<Square5> squares5;
+std::vector<Square6> squares6;
 
 
 // Hilfsfunktion zum Finden eines Quadrats anhand seiner ID
@@ -76,6 +92,24 @@ Square4* findSquare4(int id4) {
     return nullptr;
 }
 
+Square5* findSquare5(int id5) {
+    for (auto& square5 : squares5) {
+        if (square5.id5 == id5) {
+            return &square5;
+        }
+    }
+    return nullptr;
+}
+
+Square6* findSquare6(int id6) {
+    for (auto& square6 : squares6) {
+        if (square6.id6 == id6) {
+            return &square6;
+        }
+    }
+    return nullptr;
+}
+
 
 
 // Mausereignis-Callback-Funktion
@@ -91,6 +125,10 @@ void mouse(int button, int state, int x, int y) {
         float yPos3 = (float)y / glutGet(GLUT_WINDOW_HEIGHT) * -2 + 1;
         float xPos4 = (float)x / glutGet(GLUT_WINDOW_WIDTH) * 2 - 1;
         float yPos4 = (float)y / glutGet(GLUT_WINDOW_HEIGHT) * -2 + 1;
+        float xPos5 = (float)x / glutGet(GLUT_WINDOW_WIDTH) * 2 - 1;
+        float yPos5 = (float)y / glutGet(GLUT_WINDOW_HEIGHT) * -2 + 1;
+        float xPos6 = (float)x / glutGet(GLUT_WINDOW_WIDTH) * 2 - 1;
+        float yPos6 = (float)y / glutGet(GLUT_WINDOW_HEIGHT) * -2 + 1;
     
 
         // Quadrat auswählen, das am nächsten zur Mausposition ist
@@ -131,6 +169,26 @@ void mouse(int button, int state, int x, int y) {
             if (dist4 < closestDist) {
                 closestId4 = square4.id4;
                 closestDist4 = dist4;
+            }
+        }
+
+        int closestId5 = -1;
+        float closestDist5 = 0.5f;
+        for (auto& square5 : squares5) {
+            float dist5 = std::sqrt(std::pow(square5.x5 - xPos5, 2) + std::pow(square5.y5 - yPos5, 2));
+            if (dist5 < closestDist) {
+                closestId5 = square5.id5;
+                closestDist5 = dist5;
+            }
+        }
+
+        int closestId6 = -1;
+        float closestDist6 = 0.5f;
+        for (auto& square6 : squares6) {
+            float dist6 = std::sqrt(std::pow(square6.x6 - xPos6, 2) + std::pow(square6.y6 - yPos6, 2));
+            if (dist6 < closestDist) {
+                closestId6 = square6.id6;
+                closestDist6 = dist6;
             }
         }
 
@@ -175,6 +233,30 @@ void mouse(int button, int state, int x, int y) {
             if (square4) {
                 square4->x4 = xPos4;
                 square4->y4 = yPos4;
+
+                // Neuzeichnen des Fensters
+                glutPostRedisplay();
+            }
+        }
+
+        // Position des ausgewählten Quadrats aktualisieren
+        if (closestId5 != -1) {
+            Square5* square5 = findSquare5(closestId5);
+            if (square5) {
+                square5->x5 = xPos5;
+                square5->y5 = yPos5;
+
+                // Neuzeichnen des Fensters
+                glutPostRedisplay();
+            }
+        }
+
+        // Position des ausgewählten Quadrats aktualisieren
+        if (closestId6 != -1) {
+            Square6* square6 = findSquare6(closestId6);
+            if (square6) {
+                square6->x6 = xPos6;
+                square6->y6 = yPos6;
 
                 // Neuzeichnen des Fensters
                 glutPostRedisplay();
@@ -302,19 +384,19 @@ void draw() {
 
         glColor3f(0.5f, 0.5f, 0.5f);
         glBegin(GL_QUADS);
-        glVertex2f(square4.x4 - square4.size4 , square4.y4 + square4.size4 / 3);
+        glVertex2f(square4.x4 - square4.size4, square4.y4 + square4.size4 / 3);
         glVertex2f(square4.x4 + square4.size4 / 150, square4.y4 + square4.size4 / 3);
         glVertex2f(square4.x4 + square4.size4 / 150, square4.y4 - square4.size4 / 3);
-        glVertex2f(square4.x4 - square4.size4 , square4.y4 - square4.size4 / 3);
+        glVertex2f(square4.x4 - square4.size4, square4.y4 - square4.size4 / 3);
         glEnd();
 
         glLineWidth(2.0f);
         glColor3f(0.0f, 0.0f, 0.0f);
         glBegin(GL_LINES);
-        glVertex2f(square4.x4 - square4.size4 , square4.y4 + square4.size4 / 3);
+        glVertex2f(square4.x4 - square4.size4, square4.y4 + square4.size4 / 3);
         glVertex2f(square4.x4 + square4.size4 - square4.size4 - square4.size4 / 3, square4.y4 + square4.size4 / 3);
-        glVertex2f(square4.x4 - square4.size4 , square4.y4 - square4.size4 / 3);
-        glVertex2f(square4.x4 + square4.size4 /3, square4.y4 - square4.size4 / 3);
+        glVertex2f(square4.x4 - square4.size4, square4.y4 - square4.size4 / 3);
+        glVertex2f(square4.x4 + square4.size4 / 3, square4.y4 - square4.size4 / 3);
         glEnd();
 
         glColor3f(0.5f, 0.5f, 0.5f);
@@ -330,16 +412,107 @@ void draw() {
         glColor3f(0.0f, 0.0f, 0.0f);
         glBegin(GL_LINES);
         glVertex2f(square4.x4 - square4.size4 / 3, square4.y4 - square4.size4 + square4.size4 + square4.size4 / 3);
-        glVertex2f(square4.x4 - square4.size4 / 3, square4.y4 + square4.size4 );
-        glVertex2f(square4.x4 + square4.size4 / 3, square4.y4 - square4.size4 /3);
-        glVertex2f(square4.x4 + square4.size4 / 3, square4.y4 + square4.size4 );
+        glVertex2f(square4.x4 - square4.size4 / 3, square4.y4 + square4.size4);
+        glVertex2f(square4.x4 + square4.size4 / 3, square4.y4 - square4.size4 / 3);
+        glVertex2f(square4.x4 + square4.size4 / 3, square4.y4 + square4.size4);
         glEnd();
     }
 
+        for (auto& square5 : squares5) {
+            // Zeichne Quadrate
+            glColor3f(1.0f, 1.0f, 1.0f);
+            glBegin(GL_QUADS);
+            glVertex2f(square5.x5 - square5.size5, square5.y5 + square5.size5);
+            glVertex2f(square5.x5 + square5.size5, square5.y5 + square5.size5);
+            glVertex2f(square5.x5 + square5.size5, square5.y5 - square5.size5);
+            glVertex2f(square5.x5 - square5.size5, square5.y5 - square5.size5);
+            glEnd();
+
+            glColor3f(0.5f, 0.5f, 0.5f);
+            glBegin(GL_QUADS);
+            glVertex2f(square5.x5 - square5.size5, square5.y5 + square5.size5 / 3);
+            glVertex2f(square5.x5 + square5.size5 / 150, square5.y5 + square5.size5 / 3);
+            glVertex2f(square5.x5 + square5.size5 /150, square5.y5 - square5.size5 / 3);
+            glVertex2f(square5.x5 - square5.size5, square5.y5 - square5.size5 / 3);
+            glEnd();
+
+            glLineWidth(2.0f);
+            glColor3f(0.0f, 0.0f, 0.0f);
+            glBegin(GL_LINES);
+            glVertex2f(square5.x5 - square5.size5, square5.y5 + square5.size5 / 3);
+            glVertex2f(square5.x5 + square5.size5 - square5.size5 + square5.size5 /3 , square5.y5 + square5.size5 / 3);
+            glVertex2f(square5.x5 - square5.size5, square5.y5 - square5.size5 / 3);
+            glVertex2f(square5.x5 + square5.size5 /3, square5.y5 - square5.size5 / 3);
+            glEnd();
+
+            glColor3f(0.5f, 0.5f, 0.5f);
+            glBegin(GL_QUADS);
+            glVertex2f(square5.x5 - square5.size5  / 3, square5.y5 - square5.size5 );
+            glVertex2f(square5.x5 + square5.size5 / 3, square5.y5 - square5.size5 );
+            glVertex2f(square5.x5 + square5.size5 / 3, square5.y5 + square5.size5 - square5.size5 + square5.size5 /3);
+            glVertex2f(square5.x5 - square5.size5 / 3, square5.y5 + square5.size5 - square5.size5 + square5.size5 /3);
+            glEnd();
+
+            // Zeichne Linien
+            glLineWidth(2.0f);
+            glColor3f(0.0f, 0.0f, 0.0f);
+            glBegin(GL_LINES);
+            glVertex2f(square5.x5 - square5.size5 / 3, square5.y5 - square5.size5 );
+            glVertex2f(square5.x5 - square5.size5 / 3, square5.y5 + square5.size5 - square5.size5 - square5.size5 /3);
+            glVertex2f(square5.x5 + square5.size5 / 3, square5.y5 - square5.size5 );
+            glVertex2f(square5.x5 + square5.size5 / 3, square5.y5 + square5.size5 /3);
+            glEnd();
+        }
+
+        for (auto& square6 : squares6) {
+            // Zeichne Quadrate
+            glColor3f(1.0f, 1.0f, 1.0f);
+            glBegin(GL_QUADS);
+            glVertex2f(square6.x6 - square6.size6, square6.y6 + square6.size6);
+            glVertex2f(square6.x6 + square6.size6, square6.y6 + square6.size6);
+            glVertex2f(square6.x6 + square6.size6, square6.y6 - square6.size6);
+            glVertex2f(square6.x6 - square6.size6, square6.y6 - square6.size6);
+            glEnd();
+
+            glColor3f(0.5f, 0.5f, 0.5f);
+            glBegin(GL_QUADS);
+            glVertex2f(square6.x6 - square6.size6 /150, square6.y6 + square6.size6 / 3);
+            glVertex2f(square6.x6 + square6.size6 , square6.y6 + square6.size6 / 3);
+            glVertex2f(square6.x6 + square6.size6 , square6.y6 - square6.size6 / 3);
+            glVertex2f(square6.x6 - square6.size6 /150, square6.y6 - square6.size6 / 3);
+            glEnd();
+
+            glLineWidth(2.0f);
+            glColor3f(0.0f, 0.0f, 0.0f);
+            glBegin(GL_LINES);
+            glVertex2f(square6.x6 - square6.size6 /3, square6.y6 + square6.size6 / 3);
+            glVertex2f(square6.x6 + square6.size6 , square6.y6 + square6.size6 / 3);
+            glVertex2f(square6.x6 - square6.size6 /3, square6.y6 - square6.size6 / 3);
+            glVertex2f(square6.x6 + square6.size6 , square6.y6 - square6.size6 / 3);
+            glEnd();
+
+            glColor3f(0.5f, 0.5f, 0.5f);
+            glBegin(GL_QUADS);
+            glVertex2f(square6.x6 - square6.size6 / 3, square6.y6 - square6.size6);
+            glVertex2f(square6.x6 + square6.size6 / 3, square6.y6 - square6.size6);
+            glVertex2f(square6.x6 + square6.size6 / 3, square6.y6 + square6.size6 - square6.size6 + square6.size6 / 3);
+            glVertex2f(square6.x6 - square6.size6 / 3, square6.y6 + square6.size6 - square6.size6 + square6.size6 / 3);
+            glEnd();
+
+            // Zeichne Linien
+            glLineWidth(2.0f);
+            glColor3f(0.0f, 0.0f, 0.0f);
+            glBegin(GL_LINES);
+            glVertex2f(square6.x6 - square6.size6 / 3, square6.y6 - square6.size6 );
+            glVertex2f(square6.x6 - square6.size6 / 3, square6.y6 + square6.size6 / 3);
+            glVertex2f(square6.x6 + square6.size6 / 3, square6.y6 - square6.size6 );
+            glVertex2f(square6.x6 + square6.size6 / 3, square6.y6 + square6.size6 - square6.size6 - square6.size6 / 3);
+            glEnd();
+        }
 
 
-    glutSwapBuffers();
-}
+        glutSwapBuffers();
+    }
 
 // Funktion zum Hinzufügen eines neuen Quadrats
 void addSquare(float x, float y, float size) {
@@ -360,6 +533,16 @@ void addSquare3(float x3, float y3, float size3) {
 void addSquare4(float x4, float y4, float size4) {
     int id4 = squares4.empty() ? 1 : squares4.back().id4 + 1;
     squares4.push_back({ id4, x4, y4, size4 });
+}
+
+void addSquare5(float x5, float y5, float size5) {
+    int id5 = squares5.empty() ? 1 : squares5.back().id5 + 1;
+    squares5.push_back({ id5, x5, y5, size5 });
+}
+
+void addSquare6(float x6, float y6, float size6) {
+    int id6 = squares6.empty() ? 1 : squares6.back().id6 + 1;
+    squares6.push_back({ id6, x6, y6, size6 });
 }
 
 // Funktion zum Entfernen eines Quadrats anhand seiner ID
@@ -387,6 +570,18 @@ void removeSquare4(int id4) {
         }), squares4.end());
 }
 
+void removeSquare5(int id5) {
+    squares5.erase(std::remove_if(squares5.begin(), squares5.end(), [&](Square5& square5) {
+        return square5.id5 == id5;
+        }), squares5.end());
+}
+
+void removeSquare6(int id6) {
+    squares6.erase(std::remove_if(squares6.begin(), squares6.end(), [&](Square6& square6) {
+        return square6.id6 == id6;
+        }), squares6.end());
+}
+
 
 
 // Hauptfunktion
@@ -400,17 +595,17 @@ int main(int argc, char** argv) {
     glutMouseFunc(mouse);
 
     // Erzeugen von Quadraten mit verschiedenen Positionen
-    squares.push_back({  1, -0.5f, 0.5f, 0.15f });
-    squares2.push_back({  2, -0.3f, 0.5f, 0.15f });
-    squares2.push_back({  3, -0.1f, 0.5f, 0.15f });
-    squares3.push_back({ 4,  0.2f, 0.5f, 0.15f });
-    squares4.push_back({ 5,  0.5f, 0.5f, 0.15f });
-    squares4.push_back({ 6,  0.8f, 0.5f, 0.15f });
+    squares.push_back({  1, -0.8f, 0.5f, 0.15f });
+    squares2.push_back({  2, -0.5f, 0.5f, 0.15f });
+    squares3.push_back({  3, -0.2f, 0.5f, 0.15f });
+    squares4.push_back({ 4,  0.2f, 0.5f, 0.15f });
+    squares5.push_back({ 5,  0.5f, 0.5f, 0.15f });
+    squares6.push_back({ 6,  0.8f, 0.5f, 0.15f });
 
     //Tastenzuweisung 
     glutKeyboardFunc([](unsigned char key, int x, int y) {
         if (key == '1') {
-            addSquare(-0.5f, 0.5f, 0.15f);
+            addSquare(-0.8f, 0.5f, 0.15f);
             glutPostRedisplay();
         }
         else if (key == 'q') {
@@ -429,7 +624,7 @@ int main(int argc, char** argv) {
     }
 
     if (key == '3') {
-        addSquare3(-0.5f, 0.5f, 0.15f);
+        addSquare3(-0.2f, 0.5f, 0.15f);
         glutPostRedisplay();
     }
 
@@ -439,12 +634,32 @@ int main(int argc, char** argv) {
     }
 
     if (key == '4') {
-        addSquare4(-0.5f, 0.5f, 0.15f);
+        addSquare4(0.2f, 0.5f, 0.15f);
         glutPostRedisplay();
     }
 
-    else if (key == 'f') {
+    else if (key == 'r') {
         removeSquare4(squares4.back().id4);
+        glutPostRedisplay();
+    }
+
+    if (key == '5') {
+        addSquare5(0.5f, 0.5f, 0.15f);
+        glutPostRedisplay();
+    }
+
+    else if (key == 't') {
+        removeSquare5(squares5.back().id5);
+        glutPostRedisplay();
+    }
+
+    if (key == '6') {
+        addSquare6(0.8f, 0.5f, 0.15f);
+        glutPostRedisplay();
+    }
+
+    else if (key == 'z') {
+        removeSquare6(squares6.back().id6);
         glutPostRedisplay();
     }
         
